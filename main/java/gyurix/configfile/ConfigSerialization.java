@@ -1,9 +1,5 @@
 package gyurix.configfile;
 
-import gyurix.utils.ClassUtils;
-import gyurix.utils.DualMap;
-import sun.reflect.ReflectionFactory;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
@@ -11,6 +7,11 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+
+import gyurix.utils.ClassUtils;
+import gyurix.utils.DualMap;
+import sun.reflect.ReflectionFactory;
 
 
 public class ConfigSerialization {
@@ -18,26 +19,25 @@ public class ConfigSerialization {
     public static final DualMap<Class, String> aliases = new DualMap();
     public static final HashMap<Class, Serializer> serializers = new HashMap();
     public static final DualMap<Class, Class> interfaceBasedClasses = new DualMap();
-    public static ArrayList<String> errors = new ArrayList<String>();
+    public static ArrayList<String> errors= new ArrayList<String>();
 
     public static String getAlias(Class c) {
         if (c.isArray())
             c = Array.class;
-        String al = aliases.get(c);
+        String al = (String) aliases.get(c);
         if (al == null) {
-            Class i = interfaceBasedClasses.getKey(c);
+            Class i = (Class) interfaceBasedClasses.getKey(c);
             if (i != null) {
-                al = aliases.get(i);
+                al = (String) aliases.get(i);
                 return al == null ? i.getName() : al;
             }
-            return c.getName();
         }
-        return al;
+        return al == null ? c.getName() : al;
     }
 
     public static String calculateClassName(Class type, Class objectClass) {
         if (!objectClass.getName().equals(type.getName())) {
-            Class c = interfaceBasedClasses.get(type);
+            Class c = (Class) interfaceBasedClasses.get(type);
             c = c == null ? type : c;
             if (c != objectClass) {
                 return "-" + getAlias(objectClass);
@@ -47,15 +47,15 @@ public class ConfigSerialization {
     }
 
     public static Class getNotInterfaceClass(Class cl) {
-        Class c = interfaceBasedClasses.get(cl);
+        Class c = (Class) interfaceBasedClasses.get(cl);
         return c == null ? cl : c;
     }
 
     public static Class realClass(String alias) {
-        Class alC = aliases.getKey(alias);
+        Class alC = (Class) aliases.getKey(alias);
         try {
             Class c = alC == null ? Class.forName(alias) : alC;
-            Class c2 = interfaceBasedClasses.get(c);
+            Class c2 = (Class) interfaceBasedClasses.get(c);
             return c2 == null ? c : c2;
         } catch (Throwable e) {
             errorLog(e);
@@ -88,12 +88,7 @@ public class ConfigSerialization {
 
     public static Object newInstance(Class cl) {
         try {
-            try{
-                return cl.newInstance();
-            }
-            catch (Throwable err){
-                return rf.newConstructorForSerialization(cl, Object.class.getDeclaredConstructor()).newInstance();
-            }
+            return rf.newConstructorForSerialization(cl, Object.class.getDeclaredConstructor(new Class[0])).newInstance(new Object[0]);
         } catch (Throwable e) {
             errorLog(e);
         }
@@ -101,35 +96,35 @@ public class ConfigSerialization {
     }
 
     public static void errorLog(Throwable e) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(e.getClass().getName()).append(" - ").append(e.getMessage());
-        for (StackTraceElement s : e.getStackTrace()) {
-            String loc = s.toString();
+        int i=1;
+        StringBuilder sb=new StringBuilder();
+        sb.append(e.getClass().getName()+" - "+e.getMessage());
+        for (StackTraceElement s:e.getStackTrace()){
+            String loc=s.toString();
             if (loc.contains("gyurix")) {
-                sb.append('\n').append(loc);
+                sb.append(loc);
             }
         }
-        String err = sb.toString();
-        if (!errors.contains(err)) {
+        String err=sb.toString();
+        if (!errors.contains(err)){
             errors.add(err);
             System.out.println("ConfigFile Error Reporter - found a new type of error, w:\n\n" + err + "\n\nYou should report this bug to the plugins dev, gyuriX");
-            e.printStackTrace();
         }
     }
 
-    public interface StringSerializable {
-        String toString();
+    public static abstract interface StringSerializable {
+        public abstract String toString();
     }
 
-    public interface Serializer {
-        Object fromData(ConfigData paramConfigData, Class paramClass, Type... paramVarArgs);
+    public static abstract interface Serializer {
+        public abstract Object fromData(ConfigData paramConfigData, Class paramClass, Type... paramVarArgs);
 
-        ConfigData toData(Object paramObject, Type... paramVarArgs);
+        public abstract ConfigData toData(Object paramObject, Type... paramVarArgs);
     }
 
     @Target({java.lang.annotation.ElementType.FIELD})
     @Retention(RetentionPolicy.RUNTIME)
-    public @interface ConfigOptions {
+    public static @interface ConfigOptions {
         String defaultValue() default "null";
 
         String comment() default "";

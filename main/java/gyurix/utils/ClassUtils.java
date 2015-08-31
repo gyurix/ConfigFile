@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ClassUtils {
     public static List<Class> getAllInterfaces(Class cls) {
-        if (cls == null) {
+        if(cls == null) {
             return null;
         } else {
             ArrayList interfacesFound = new ArrayList();
@@ -15,13 +15,13 @@ public class ClassUtils {
     }
 
     private static void getAllInterfaces(Class cls, List interfacesFound) {
-        while (cls != null) {
+        while(cls != null) {
             Class[] interfaces = cls.getInterfaces();
 
-            for (Class anInterface : interfaces) {
-                if (!interfacesFound.contains(anInterface)) {
-                    interfacesFound.add(anInterface);
-                    getAllInterfaces(anInterface, interfacesFound);
+            for(int i = 0; i < interfaces.length; ++i) {
+                if(!interfacesFound.contains(interfaces[i])) {
+                    interfacesFound.add(interfaces[i]);
+                    getAllInterfaces(interfaces[i], interfacesFound);
                 }
             }
 
