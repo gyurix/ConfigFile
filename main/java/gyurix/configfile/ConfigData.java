@@ -1,11 +1,15 @@
 package gyurix.configfile;
 
+import com.sun.deploy.util.StringUtils;
 import gyurix.utils.Primitives;
 
 import java.lang.reflect.Type;
+import java.security.cert.CollectionCertStoreParameters;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class ConfigData {
     public String comment;
@@ -21,10 +25,10 @@ public class ConfigData {
         this.stringData = stringData;
     }
 
-    public ConfigData(String stringData,String comment) {
+    public ConfigData(String stringData, String comment) {
         this.stringData = stringData;
-        if (comment!=null&&!comment.isEmpty())
-            this.comment=comment;
+        if (comment != null && !comment.isEmpty())
+            this.comment = comment;
     }
 
     public static ConfigData serializeObject(Object obj, Type... parameters) {
@@ -33,7 +37,6 @@ public class ConfigData {
 
     public static ConfigData serializeObject(Object obj, boolean className, Type... parameters) {
         if (obj == null) {
-            System.out.println("OBJ=Null");
             return null;
         }
         Class c = Primitives.wrap(obj.getClass());
@@ -63,8 +66,7 @@ public class ConfigData {
         for (char c : in.toCharArray()) {
             switch (c) {
                 case ' ':
-                case '#':
-                    out.append(escSpace.contains("" + prev) ? "\\" + c : Character.valueOf(c));
+                    out.append(escSpace.contains("" + prev) ? "\\" + c : c);
                     break;
                 case '‼':
                     if (prev == '\\')
@@ -81,7 +83,7 @@ public class ConfigData {
                     out.append("\\b");
                     break;
                 case '\n':
-                    out.append(escSpace.contains("" + prev)||escSpace.contains(""+prev) ? "\\n": '\n');
+                    out.append(escSpace.contains("" + prev) || escSpace.contains("" + prev) ? "\\n" : '\n');
                     break;
                 case '\\':
                     out.append("\\\\");
@@ -182,15 +184,15 @@ public class ConfigData {
         if (this.objectData != null) {
             return serializeObject(this.objectData, new Type[0]).toString();
         }
-        if (this.stringData != null&&!this.stringData.isEmpty()) {
+        if (this.stringData != null && !this.stringData.isEmpty()) {
             out.append(escape(this.stringData));
         }
-        if (this.mapData != null&&!this.mapData.isEmpty()) {
+        if (this.mapData != null && !this.mapData.isEmpty()) {
             for (Map.Entry<ConfigData, ConfigData> d : this.mapData.entrySet()) {
                 String value = d.getValue().toString();
-                if (value==null)
+                if (value == null)
                     continue;
-                value=value.replace("\n", "\n  ");
+                value = value.replace("\n", "\n  ");
                 String key = (d.getKey()).toString().replace("\n", "\n  ");
                 if (key.contains("\n")) {
                     out.append("\n  > ").append(key).append("\n  : ").append(value);
@@ -203,11 +205,11 @@ public class ConfigData {
                     out.append("\n#").append((d.getValue()).comment.replace("\n", "\n#"));
             }
         }
-        if (this.listData != null&&!this.listData.isEmpty()) {
+        if (this.listData != null && !this.listData.isEmpty()) {
             for (ConfigData d : this.listData) {
                 String data = d.toString();
-                if (data==null)
-                    data="";
+                if (data == null)
+                    data = "";
                 else if (data.startsWith("\n  "))
                     data = data.substring(3);
                 out.append("\n- ").append(data);
@@ -215,13 +217,13 @@ public class ConfigData {
                     out.append("\n#").append(d.comment.replace("\n", "\n#"));
             }
         }
-        if (out.length()==0)
+        if (out.length() == 0)
             return null;
         return out.toString();
     }
 
     public boolean equals(Object obj) {
-        return obj != null;
+        return obj != null&&obj instanceof ConfigData?(((ConfigData) obj).stringData+"").equals(""+stringData):false;
     }
 
 
