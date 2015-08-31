@@ -14,6 +14,29 @@ public final class Primitives {
     private static final Map<Class<?>, Class<?>> PRIMITIVE_TO_WRAPPER_TYPE;
     private static final Map<Class<?>, Class<?>> WRAPPER_TO_PRIMITIVE_TYPE;
 
+    public Primitives() {
+    }
+
+    private static void add(Map<Class<?>, Class<?>> forward, Map<Class<?>, Class<?>> backward, Class<?> key, Class<?> value) {
+        forward.put(key, value);
+        backward.put(value, key);
+    }
+
+    public static boolean isPrimitive(Type type) {
+        return PRIMITIVE_TO_WRAPPER_TYPE.containsKey(type);
+    }
+
+
+    public static <T> Class<T> wrap(Class<T> type) {
+        Class wrapped = (Class)PRIMITIVE_TO_WRAPPER_TYPE.get(type);
+        return wrapped == null?type:wrapped;
+    }
+
+    public static <T> Class<T> unwrap(Class<T> type) {
+        Class unwrapped = (Class)WRAPPER_TO_PRIMITIVE_TYPE.get(type);
+        return unwrapped == null?type:unwrapped;
+    }
+
     static {
         HashMap primToWrap = new HashMap(16);
         HashMap wrapToPrim = new HashMap(16);
@@ -28,27 +51,5 @@ public final class Primitives {
         add(primToWrap, wrapToPrim, Void.TYPE, Void.class);
         PRIMITIVE_TO_WRAPPER_TYPE = Collections.unmodifiableMap(primToWrap);
         WRAPPER_TO_PRIMITIVE_TYPE = Collections.unmodifiableMap(wrapToPrim);
-    }
-
-    public Primitives() {
-    }
-
-    private static void add(Map<Class<?>, Class<?>> forward, Map<Class<?>, Class<?>> backward, Class<?> key, Class<?> value) {
-        forward.put(key, value);
-        backward.put(value, key);
-    }
-
-    public static boolean isPrimitive(Type type) {
-        return PRIMITIVE_TO_WRAPPER_TYPE.containsKey(type);
-    }
-
-    public static <T> Class<T> wrap(Class<T> type) {
-        Class wrapped = (Class) PRIMITIVE_TO_WRAPPER_TYPE.get(type);
-        return wrapped == null ? type : wrapped;
-    }
-
-    public static <T> Class<T> unwrap(Class<T> type) {
-        Class unwrapped = (Class) WRAPPER_TO_PRIMITIVE_TYPE.get(type);
-        return unwrapped == null ? type : unwrapped;
     }
 }

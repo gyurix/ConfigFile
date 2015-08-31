@@ -52,11 +52,12 @@ public class ArrayUtils {
                         throw new IllegalArgumentException("Array element " + i + ", \'" + object + "\', is neither of type Map.Entry nor an Array");
                     }
 
-                    if(((Object[]) object).length < 2) {
+                    Object[] var5 = (Object[])((Object[])object);
+                    if(var5.length < 2) {
                         throw new IllegalArgumentException("Array element " + i + ", \'" + object + "\', has a length less than 2");
                     }
 
-                    map.put(((Object[]) object)[0], ((Object[]) object)[1]);
+                    map.put(var5[0], var5[1]);
                 }
             }
 
@@ -65,39 +66,39 @@ public class ArrayUtils {
     }
 
     public static Object[] clone(Object[] array) {
-        return array == null?null:(Object[]) array.clone();
+        return array == null?null:(Object[])((Object[])array.clone());
     }
 
     public static long[] clone(long[] array) {
-        return array == null?null:(long[]) array.clone();
+        return array == null?null:(long[])((long[])array.clone());
     }
 
     public static int[] clone(int[] array) {
-        return array == null?null:(int[]) array.clone();
+        return array == null?null:(int[])((int[])array.clone());
     }
 
     public static short[] clone(short[] array) {
-        return array == null?null:(short[]) array.clone();
+        return array == null?null:(short[])((short[])array.clone());
     }
 
     public static char[] clone(char[] array) {
-        return array == null?null:(char[]) array.clone();
+        return array == null?null:(char[])((char[])array.clone());
     }
 
     public static byte[] clone(byte[] array) {
-        return array == null?null:(byte[]) array.clone();
+        return array == null?null:(byte[])((byte[])array.clone());
     }
 
     public static double[] clone(double[] array) {
-        return array == null?null:(double[]) array.clone();
+        return array == null?null:(double[])((double[])array.clone());
     }
 
     public static float[] clone(float[] array) {
-        return array == null?null:(float[]) array.clone();
+        return array == null?null:(float[])((float[])array.clone());
     }
 
     public static boolean[] clone(boolean[] array) {
-        return array == null?null:(boolean[]) array.clone();
+        return array == null?null:(boolean[])((boolean[])array.clone());
     }
 
     public static Object[] nullToEmpty(Object[] array) {
@@ -187,9 +188,9 @@ public class ArrayUtils {
             int newSize = endIndexExclusive - startIndexInclusive;
             Class type = array.getClass().getComponentType();
             if(newSize <= 0) {
-                return (Object[]) Array.newInstance(type, 0);
+                return (Object[])((Object[])Array.newInstance(type, 0));
             } else {
-                Object[] subarray = (Object[])Array.newInstance(type, newSize);
+                Object[] subarray = (Object[])((Object[])Array.newInstance(type, newSize));
                 System.arraycopy(array, startIndexInclusive, subarray, 0, newSize);
                 return subarray;
             }
@@ -673,7 +674,7 @@ public class ArrayUtils {
     }
 
     public static int indexOf(int[] array, int valueToFind) {
-        return indexOf(array, valueToFind, 0);
+        return indexOf((int[])array, (int)valueToFind, 0);
     }
 
     public static int indexOf(int[] array, int valueToFind, int startIndex) {
@@ -695,7 +696,7 @@ public class ArrayUtils {
     }
 
     public static int lastIndexOf(int[] array, int valueToFind) {
-        return lastIndexOf(array, valueToFind, 2147483647);
+        return lastIndexOf((int[])array, (int)valueToFind, 2147483647);
     }
 
     public static int lastIndexOf(int[] array, int valueToFind, int startIndex) {
@@ -719,11 +720,11 @@ public class ArrayUtils {
     }
 
     public static boolean contains(int[] array, int valueToFind) {
-        return indexOf(array, valueToFind) != -1;
+        return indexOf((int[])array, (int)valueToFind) != -1;
     }
 
     public static int indexOf(short[] array, short valueToFind) {
-        return indexOf(array, valueToFind, 0);
+        return indexOf((short[])array, (short)valueToFind, 0);
     }
 
     public static int indexOf(short[] array, short valueToFind, int startIndex) {
@@ -745,7 +746,7 @@ public class ArrayUtils {
     }
 
     public static int lastIndexOf(short[] array, short valueToFind) {
-        return lastIndexOf(array, valueToFind, 2147483647);
+        return lastIndexOf((short[])array, (short)valueToFind, 2147483647);
     }
 
     public static int lastIndexOf(short[] array, short valueToFind, int startIndex) {
@@ -769,11 +770,11 @@ public class ArrayUtils {
     }
 
     public static boolean contains(short[] array, short valueToFind) {
-        return indexOf(array, valueToFind) != -1;
+        return indexOf((short[])array, (short)valueToFind) != -1;
     }
 
     public static int indexOf(char[] array, char valueToFind) {
-        return indexOf(array, valueToFind, 0);
+        return indexOf((char[])array, (char)valueToFind, 0);
     }
 
     public static int indexOf(char[] array, char valueToFind, int startIndex) {
@@ -795,7 +796,7 @@ public class ArrayUtils {
     }
 
     public static int lastIndexOf(char[] array, char valueToFind) {
-        return lastIndexOf(array, valueToFind, 2147483647);
+        return lastIndexOf((char[])array, (char)valueToFind, 2147483647);
     }
 
     public static int lastIndexOf(char[] array, char valueToFind, int startIndex) {
@@ -819,11 +820,11 @@ public class ArrayUtils {
     }
 
     public static boolean contains(char[] array, char valueToFind) {
-        return indexOf(array, valueToFind) != -1;
+        return indexOf((char[])array, (char)valueToFind) != -1;
     }
 
     public static int indexOf(byte[] array, byte valueToFind) {
-        return indexOf(array, valueToFind, 0);
+        return indexOf((byte[])array, (byte)valueToFind, 0);
     }
 
     public static int indexOf(byte[] array, byte valueToFind, int startIndex) {
@@ -845,7 +846,7 @@ public class ArrayUtils {
     }
 
     public static int lastIndexOf(byte[] array, byte valueToFind) {
-        return lastIndexOf(array, valueToFind, 2147483647);
+        return lastIndexOf((byte[])array, (byte)valueToFind, 2147483647);
     }
 
     public static int lastIndexOf(byte[] array, byte valueToFind, int startIndex) {
@@ -869,7 +870,7 @@ public class ArrayUtils {
     }
 
     public static boolean contains(byte[] array, byte valueToFind) {
-        return indexOf(array, valueToFind) != -1;
+        return indexOf((byte[])array, (byte)valueToFind) != -1;
     }
 
     public static int indexOf(double[] array, double valueToFind) {
@@ -881,7 +882,7 @@ public class ArrayUtils {
     }
 
     public static int indexOf(double[] array, double valueToFind, int startIndex) {
-        if(isEmpty(array)) {
+        if(isEmpty((double[])array)) {
             return -1;
         } else {
             if(startIndex < 0) {
@@ -899,7 +900,7 @@ public class ArrayUtils {
     }
 
     public static int indexOf(double[] array, double valueToFind, int startIndex, double tolerance) {
-        if(isEmpty(array)) {
+        if(isEmpty((double[])array)) {
             return -1;
         } else {
             if(startIndex < 0) {
@@ -928,7 +929,7 @@ public class ArrayUtils {
     }
 
     public static int lastIndexOf(double[] array, double valueToFind, int startIndex) {
-        if(isEmpty(array)) {
+        if(isEmpty((double[])array)) {
             return -1;
         } else if(startIndex < 0) {
             return -1;
@@ -948,7 +949,7 @@ public class ArrayUtils {
     }
 
     public static int lastIndexOf(double[] array, double valueToFind, int startIndex, double tolerance) {
-        if(isEmpty(array)) {
+        if(isEmpty((double[])array)) {
             return -1;
         } else if(startIndex < 0) {
             return -1;
@@ -983,7 +984,7 @@ public class ArrayUtils {
     }
 
     public static int indexOf(float[] array, float valueToFind, int startIndex) {
-        if(isEmpty(array)) {
+        if(isEmpty((float[])array)) {
             return -1;
         } else {
             if(startIndex < 0) {
@@ -1005,7 +1006,7 @@ public class ArrayUtils {
     }
 
     public static int lastIndexOf(float[] array, float valueToFind, int startIndex) {
-        if(isEmpty(array)) {
+        if(isEmpty((float[])array)) {
             return -1;
         } else if(startIndex < 0) {
             return -1;
@@ -1033,7 +1034,7 @@ public class ArrayUtils {
     }
 
     public static int indexOf(boolean[] array, boolean valueToFind, int startIndex) {
-        if(isEmpty(array)) {
+        if(isEmpty((boolean[])array)) {
             return -1;
         } else {
             if(startIndex < 0) {
@@ -1055,7 +1056,7 @@ public class ArrayUtils {
     }
 
     public static int lastIndexOf(boolean[] array, boolean valueToFind, int startIndex) {
-        if(isEmpty(array)) {
+        if(isEmpty((boolean[])array)) {
             return -1;
         } else if(startIndex < 0) {
             return -1;
@@ -1544,11 +1545,11 @@ public class ArrayUtils {
 
     public static Object[] addAll(Object[] array1, Object[] array2) {
         if(array1 == null) {
-            return clone(array2);
+            return clone((Object[])array2);
         } else if(array2 == null) {
-            return clone(array1);
+            return clone((Object[])array1);
         } else {
-            Object[] joinedArray = (Object[]) Array.newInstance(array1.getClass().getComponentType(), array1.length + array2.length);
+            Object[] joinedArray = (Object[])((Object[])Array.newInstance(array1.getClass().getComponentType(), array1.length + array2.length));
             System.arraycopy(array1, 0, joinedArray, 0, array1.length);
 
             try {
@@ -1568,9 +1569,9 @@ public class ArrayUtils {
 
     public static boolean[] addAll(boolean[] array1, boolean[] array2) {
         if(array1 == null) {
-            return clone(array2);
+            return clone((boolean[])array2);
         } else if(array2 == null) {
-            return clone(array1);
+            return clone((boolean[])array1);
         } else {
             boolean[] joinedArray = new boolean[array1.length + array2.length];
             System.arraycopy(array1, 0, joinedArray, 0, array1.length);
@@ -1581,9 +1582,9 @@ public class ArrayUtils {
 
     public static char[] addAll(char[] array1, char[] array2) {
         if(array1 == null) {
-            return clone(array2);
+            return clone((char[])array2);
         } else if(array2 == null) {
-            return clone(array1);
+            return clone((char[])array1);
         } else {
             char[] joinedArray = new char[array1.length + array2.length];
             System.arraycopy(array1, 0, joinedArray, 0, array1.length);
@@ -1594,9 +1595,9 @@ public class ArrayUtils {
 
     public static byte[] addAll(byte[] array1, byte[] array2) {
         if(array1 == null) {
-            return clone(array2);
+            return clone((byte[])array2);
         } else if(array2 == null) {
-            return clone(array1);
+            return clone((byte[])array1);
         } else {
             byte[] joinedArray = new byte[array1.length + array2.length];
             System.arraycopy(array1, 0, joinedArray, 0, array1.length);
@@ -1607,9 +1608,9 @@ public class ArrayUtils {
 
     public static short[] addAll(short[] array1, short[] array2) {
         if(array1 == null) {
-            return clone(array2);
+            return clone((short[])array2);
         } else if(array2 == null) {
-            return clone(array1);
+            return clone((short[])array1);
         } else {
             short[] joinedArray = new short[array1.length + array2.length];
             System.arraycopy(array1, 0, joinedArray, 0, array1.length);
@@ -1620,9 +1621,9 @@ public class ArrayUtils {
 
     public static int[] addAll(int[] array1, int[] array2) {
         if(array1 == null) {
-            return clone(array2);
+            return clone((int[])array2);
         } else if(array2 == null) {
-            return clone(array1);
+            return clone((int[])array1);
         } else {
             int[] joinedArray = new int[array1.length + array2.length];
             System.arraycopy(array1, 0, joinedArray, 0, array1.length);
@@ -1633,9 +1634,9 @@ public class ArrayUtils {
 
     public static long[] addAll(long[] array1, long[] array2) {
         if(array1 == null) {
-            return clone(array2);
+            return clone((long[])array2);
         } else if(array2 == null) {
-            return clone(array1);
+            return clone((long[])array1);
         } else {
             long[] joinedArray = new long[array1.length + array2.length];
             System.arraycopy(array1, 0, joinedArray, 0, array1.length);
@@ -1646,9 +1647,9 @@ public class ArrayUtils {
 
     public static float[] addAll(float[] array1, float[] array2) {
         if(array1 == null) {
-            return clone(array2);
+            return clone((float[])array2);
         } else if(array2 == null) {
-            return clone(array1);
+            return clone((float[])array1);
         } else {
             float[] joinedArray = new float[array1.length + array2.length];
             System.arraycopy(array1, 0, joinedArray, 0, array1.length);
@@ -1659,9 +1660,9 @@ public class ArrayUtils {
 
     public static double[] addAll(double[] array1, double[] array2) {
         if(array1 == null) {
-            return clone(array2);
+            return clone((double[])array2);
         } else if(array2 == null) {
-            return clone(array1);
+            return clone((double[])array1);
         } else {
             double[] joinedArray = new double[array1.length + array2.length];
             System.arraycopy(array1, 0, joinedArray, 0, array1.length);
@@ -1672,49 +1673,49 @@ public class ArrayUtils {
 
 
     public static boolean[] add(boolean[] array, boolean element) {
-        boolean[] newArray = (boolean[]) copyArrayGrow1(array, Boolean.TYPE);
+        boolean[] newArray = (boolean[])((boolean[])copyArrayGrow1(array, Boolean.TYPE));
         newArray[newArray.length - 1] = element;
         return newArray;
     }
 
     public static byte[] add(byte[] array, byte element) {
-        byte[] newArray = (byte[]) copyArrayGrow1(array, Byte.TYPE);
+        byte[] newArray = (byte[])((byte[])copyArrayGrow1(array, Byte.TYPE));
         newArray[newArray.length - 1] = element;
         return newArray;
     }
 
     public static char[] add(char[] array, char element) {
-        char[] newArray = (char[]) copyArrayGrow1(array, Character.TYPE);
+        char[] newArray = (char[])((char[])copyArrayGrow1(array, Character.TYPE));
         newArray[newArray.length - 1] = element;
         return newArray;
     }
 
     public static double[] add(double[] array, double element) {
-        double[] newArray = (double[]) copyArrayGrow1(array, Double.TYPE);
+        double[] newArray = (double[])((double[])copyArrayGrow1(array, Double.TYPE));
         newArray[newArray.length - 1] = element;
         return newArray;
     }
 
     public static float[] add(float[] array, float element) {
-        float[] newArray = (float[]) copyArrayGrow1(array, Float.TYPE);
+        float[] newArray = (float[])((float[])copyArrayGrow1(array, Float.TYPE));
         newArray[newArray.length - 1] = element;
         return newArray;
     }
 
     public static int[] add(int[] array, int element) {
-        int[] newArray = (int[]) copyArrayGrow1(array, Integer.TYPE);
+        int[] newArray = (int[])((int[])copyArrayGrow1(array, Integer.TYPE));
         newArray[newArray.length - 1] = element;
         return newArray;
     }
 
     public static long[] add(long[] array, long element) {
-        long[] newArray = (long[]) copyArrayGrow1(array, Long.TYPE);
+        long[] newArray = (long[])((long[])copyArrayGrow1(array, Long.TYPE));
         newArray[newArray.length - 1] = element;
         return newArray;
     }
 
     public static short[] add(short[] array, short element) {
-        short[] newArray = (short[]) copyArrayGrow1(array, Short.TYPE);
+        short[] newArray = (short[])((short[])copyArrayGrow1(array, Short.TYPE));
         newArray[newArray.length - 1] = element;
         return newArray;
     }
@@ -1742,35 +1743,35 @@ public class ArrayUtils {
             clss = element.getClass();
         }
 
-        return (Object[]) add(array, index, element, clss);
+        return (Object[])((Object[])add(array, index, element, clss));
     }
 
     public static char[] add(char[] array, int index, char element) {
-        return (char[]) add(array, index, new Character(element), Character.TYPE);
+        return (char[])((char[])add(array, index, new Character(element), Character.TYPE));
     }
 
     public static byte[] add(byte[] array, int index, byte element) {
-        return (byte[]) add(array, index, new Byte(element), Byte.TYPE);
+        return (byte[])((byte[])add(array, index, new Byte(element), Byte.TYPE));
     }
 
     public static short[] add(short[] array, int index, short element) {
-        return (short[]) add(array, index, new Short(element), Short.TYPE);
+        return (short[])((short[])add(array, index, new Short(element), Short.TYPE));
     }
 
     public static int[] add(int[] array, int index, int element) {
-        return (int[]) add(array, index, new Integer(element), Integer.TYPE);
+        return (int[])((int[])add(array, index, new Integer(element), Integer.TYPE));
     }
 
     public static long[] add(long[] array, int index, long element) {
-        return (long[]) add(array, index, new Long(element), Long.TYPE);
+        return (long[])((long[])add(array, index, new Long(element), Long.TYPE));
     }
 
     public static float[] add(float[] array, int index, float element) {
-        return (float[]) add(array, index, new Float(element), Float.TYPE);
+        return (float[])((float[])add(array, index, new Float(element), Float.TYPE));
     }
 
     public static double[] add(double[] array, int index, double element) {
-        return (double[]) add(array, index, new Double(element), Double.TYPE);
+        return (double[])((double[])add(array, index, new Double(element), Double.TYPE));
     }
 
     private static Object add(Object array, int index, Object element, Class clss) {
@@ -1800,84 +1801,84 @@ public class ArrayUtils {
     }
 
     public static Object[] remove(Object[] array, int index) {
-        return (Object[]) remove((Object)array, index);
+        return (Object[])((Object[])remove((Object)array, index));
     }
 
     public static Object[] removeElement(Object[] array, Object element) {
         int index = indexOf(array, element);
-        return index == -1?clone(array):remove(array, index);
+        return index == -1?clone((Object[])array):remove((Object[])array, index);
     }
 
     public static boolean[] remove(boolean[] array, int index) {
-        return (boolean[]) remove((Object)array, index);
+        return (boolean[])((boolean[])remove((Object)array, index));
     }
 
     public static boolean[] removeElement(boolean[] array, boolean element) {
         int index = indexOf(array, element);
-        return index == -1?clone(array):remove(array, index);
+        return index == -1?clone((boolean[])array):remove((boolean[])array, index);
     }
 
     public static byte[] remove(byte[] array, int index) {
-        return (byte[])remove((Object)array, index);
+        return (byte[])((byte[])remove((Object)array, index));
     }
 
     public static byte[] removeElement(byte[] array, byte element) {
-        int index = indexOf(array, element);
-        return index == -1?clone(array):remove(array, index);
+        int index = indexOf((byte[])array, (byte)element);
+        return index == -1?clone((byte[])array):remove((byte[])array, index);
     }
 
     public static char[] remove(char[] array, int index) {
-        return (char[]) remove((Object)array, index);
+        return (char[])((char[])remove((Object)array, index));
     }
 
     public static char[] removeElement(char[] array, char element) {
-        int index = indexOf(array, element);
-        return index == -1?clone(array):remove(array, index);
+        int index = indexOf((char[])array, (char)element);
+        return index == -1?clone((char[])array):remove((char[])array, index);
     }
 
     public static double[] remove(double[] array, int index) {
-        return (double[]) remove((Object)array, index);
+        return (double[])((double[])remove((Object)array, index));
     }
 
     public static double[] removeElement(double[] array, double element) {
         int index = indexOf(array, element);
-        return index == -1?clone(array):remove(array, index);
+        return index == -1?clone((double[])array):remove((double[])array, index);
     }
 
     public static float[] remove(float[] array, int index) {
-        return (float[]) remove((Object)array, index);
+        return (float[])((float[])remove((Object)array, index));
     }
 
     public static float[] removeElement(float[] array, float element) {
         int index = indexOf(array, element);
-        return index == -1?clone(array):remove(array, index);
+        return index == -1?clone((float[])array):remove((float[])array, index);
     }
 
     public static int[] remove(int[] array, int index) {
-        return (int[])remove((Object)array, index);
+        return (int[])((int[])remove((Object)array, index));
     }
 
     public static int[] removeElement(int[] array, int element) {
-        int index = indexOf(array, element);
-        return index == -1?clone(array):remove(array, index);
+        int index = indexOf((int[])array, (int)element);
+        return index == -1?clone((int[])array):remove((int[])array, index);
     }
 
     public static long[] remove(long[] array, int index) {
-        return (long[]) remove((Object)array, index);
+        return (long[])((long[])remove((Object)array, index));
     }
 
     public static long[] removeElement(long[] array, long element) {
         int index = indexOf(array, element);
-        return index == -1?clone(array):remove(array, index);
+        return index == -1?clone((long[])array):remove((long[])array, index);
     }
 
     public static short[] remove(short[] array, int index) {
-        return (short[]) remove((Object)array, index);
+        return (short[])((short[])remove((Object)array, index));
     }
 
     public static short[] removeElement(short[] array, short element) {
-        int index = indexOf(array, element);
-        return index == -1?clone(array):remove(array, index);
+        int index = indexOf((short[])array, (short)element);
+        return index == -1?clone((short[])array):remove((short[])array, index);
     }
 
     private static Object remove(Object array, int index) {
